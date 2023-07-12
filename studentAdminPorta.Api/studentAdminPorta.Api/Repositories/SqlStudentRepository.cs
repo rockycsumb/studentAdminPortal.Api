@@ -59,5 +59,20 @@ namespace studentAdminPorta.Api.Repositories
                 return null;
             }
         }
+
+        public async Task<Student> DeleteStudent(Guid studentId)
+        {
+            var student = await GetStudentAsync(studentId);
+
+            if(student != null)
+            {
+                //delete
+                context.Student.Remove(student);
+                await context.SaveChangesAsync();
+                return student;
+            }
+
+            return null;
+        }
     }
 }
