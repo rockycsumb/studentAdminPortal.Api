@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using studentAdminPorta.Api.DataModels;
 using studentAdminPorta.Api.DomainModels;
+using studentAdminPorta.Api.Profiles.AfterMaps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,9 @@ namespace studentAdminPorta.Api.Profiles
                 .ReverseMap();
             CreateMap<Address, AddressDTO>()
                 .ReverseMap();
+
+            CreateMap<UpdateStudentRequest, Student>()
+               .AfterMap<UpdateStudentRequestAfterMap>();
         }
     }
 }
