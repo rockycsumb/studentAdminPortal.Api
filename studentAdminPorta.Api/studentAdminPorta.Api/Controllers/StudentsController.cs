@@ -5,6 +5,7 @@ using studentAdminPorta.Api.DomainModels;
 using studentAdminPorta.Api.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace studentAdminPorta.Api.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/{studentId:guid}")]
+        [Route("[controller]/{studentId:guid}"), ActionName("GetStudentAsync")]
         public async Task<IActionResult> GetStudentAsync([FromRoute] Guid studentId)
         {
             // Fetch student details
@@ -74,6 +75,15 @@ namespace studentAdminPorta.Api.Controllers
                 return Ok(mapper.Map<Student>(student));
             }
             return NotFound();
+        }
+
+        [HttpPost]
+        [Route("[controller]/Add")]
+        public async Task<IActionResult> AddStudentAsync([FromBody] AddStudentRequest request)
+        {
+            var student = await studentRepository.AddStudent(mapper.Map<Student>(request));
+            return CreatedAtAction(nameof(GetStudentAsync), new { studentId = student.Id },
+                mapper.Map<Student>(student));
         }
     }
 }

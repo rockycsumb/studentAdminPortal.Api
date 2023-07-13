@@ -22,6 +22,9 @@ namespace studentAdminPorta.Api.Profiles
 
             CreateMap<UpdateStudentRequest, Student>()
                .AfterMap<UpdateStudentRequestAfterMap>();
+
+            CreateMap<AddStudentRequest, Student>()
+                .AfterMap<AddStudentRequestAfterMap>();
         }
     }
 }
